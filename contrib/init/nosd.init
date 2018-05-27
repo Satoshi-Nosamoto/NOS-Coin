@@ -1,0 +1,67 @@
+#!/bin/bash
+#
+#  nosd The Nos core server.
+#
+#
+# chkconfig: 345 80 20
+# description: nosd
+# processname: nosd
+#
+
+# Source function library.
+. /etc/init.d/functions
+
+# you can override defaults in /etc/sysconfig/nosd, see below
+if [ -f /etc/sysconfig/nosd ]; then
+        . /etc/sysconfig/nosd
+fi
+
+RETVAL=0
+
+prog=nosd
+# you can override the lockfile via BITCOIND_LOCKFILE in /etc/sysconfig/nosd
+lockfile=${BITCOIND_LOCKFILE-/var/lock/subsys/nosd}
+
+# nosd defaults to /usr/bin/nosd, override with BITCOIND_BIN
+bitcoind=${BITCOIND_BIN-/usr/bin/nosd}
+
+# nosd opts default to -disablewallet, override with BITCOIND_OPTS
+bitcoind_opts=${BITCOIND_OPTS}
+
+start() {
+    echo -n $"Starting $prog: "
+    daemon $DAEMONOPTS $bitcoind $bitcoind_opts
+    RETVAL=$?
+    echo
+    [ $RETVAL -eq 0 ] && touch $lockfile
+    return $RETVAL
+}
+
+stop() {
+    echo -n $"Stopping $prog: "
+    killproc $prog
+    RETVAL=$?
+    echo
+    [ $RETVAL -eq 0 ] && rm -f $lockfile
+    return $RETVAL
+}
+
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    status)
+        status $prog
+        ;;
+    restart)
+        stop
+        start
+        ;;
+    *)
+        echo "Usage: service $prog {start|stop|status|restart}"
+        exit 1
+        ;;
+esac

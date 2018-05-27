@@ -1,0 +1,26 @@
+[Unit]
+Description=Nos's distributed currency daemon
+After=network.target
+
+[Service]
+User=nos
+Group=nos
+
+Type=forking
+PIDFile=/var/lib/nosd/nosd.pid
+
+ExecStart=/usr/bin/nosd -daemon -pid=/var/lib/nosd/nosd.pid \
+          -conf=/etc/nos/nos.conf -datadir=/var/lib/nosd
+
+ExecStop=-/usr/bin/nos-cli -conf=/etc/nos/nos.conf \
+         -datadir=/var/lib/nosd stop
+
+Restart=always
+PrivateTmp=true
+TimeoutStopSec=60s
+TimeoutStartSec=2s
+StartLimitInterval=120s
+StartLimitBurst=5
+
+[Install]
+WantedBy=multi-user.target
