@@ -54,7 +54,7 @@ static void convertSeed6(std::vector<CAddress>& vSeedsOut, const SeedSpec6* data
 // + Contains no strange transactions
 static Checkpoints::MapCheckpoints mapCheckpoints =
     boost::assign::map_list_of
-    (0, uint256("0x00000f44b41030d51c381ad64f4a537e7ce2e68c99011c5bdaea75fffc867f9b"));
+    (0, uint256("0x0000023d4dd91567201b6dfb2033c813d5bb5408b368cb715584c750989034f0"));
 static const Checkpoints::CCheckpointData data = {
     &mapCheckpoints,
     1514540176, // * UNIX timestamp of last checkpoint block
@@ -100,10 +100,10 @@ public:
          * The characters are rarely used upper ASCII, not valid as UTF-8, and produce
          * a large 4-byte int at any alignment.
          */
-        pchMessageStart[0] = 0x62;
-        pchMessageStart[1] = 0x30;
-        pchMessageStart[2] = 0x14;
-        pchMessageStart[3] = 0x06;
+        pchMessageStart[0] = 0x32;
+        pchMessageStart[1] = 0x60;
+        pchMessageStart[2] = 0x54;
+        pchMessageStart[3] = 0x26;
         vAlertPubKey = ParseHex("04bxbf5f4dab42002143f5b25a2e6fd658dd300508c0fd3c890edfa241edcdd224c9fb62d0a3e86ab655c384b598bd3e92d25fee84774060a0d461f0e9483587e5");
         nDefaultPort = 7272;
         bnProofOfWorkLimit = ~uint256(0) >> 20; // Nos starting difficulty is 1 / 2^12
@@ -140,7 +140,7 @@ public:
          *     CTxOut(nValue=50.00000000, scriptPubKey=0xA9037BAC7050C479B121CF)
          *   vMerkleTree: e0028e
          */
-        const char* pszTimestamp = "Deutsche Bank to slash more than 7,000 jobs – business live - The Guardian - 24 MAY 2018 -- Remapper";
+        const char* pszTimestamp = "Deutsche Bank to slash more than 7,000 jobs – business live - The Guardian - 24 MAY 2018 --- Remapper";
         CMutableTransaction txNew;
         txNew.vin.resize(1);
         txNew.vout.resize(1);
@@ -153,13 +153,41 @@ public:
         genesis.nVersion = 1;
         genesis.nTime = 1527180054;
         genesis.nBits = 0x1e0ffff0;
-        genesis.nNonce = 1951205;
+        genesis.nNonce = 3147878;
 				
-		
+		if (false && genesis.GetHash() != hashGenesisBlock)
+                                                           {
+                                                               printf("Searching for genesis block...\n");
+                                                               uint256 hashTarget = CBigNum().SetCompact(genesis.nBits).getuint256();
+                                                               uint256 thash;
+                                           
+                                                               while (false)
+                                                               {
+                                                                   thash = genesis.GetHash();
+                                                                   if (thash <= hashTarget)
+                                                                       break;
+                                                                   if ((genesis.nNonce & 0xFFF) == 0)
+                                                                   {
+                                                                       printf("nonce %08X: hash = %s (target = %s)\n", genesis.nNonce, thash.ToString().c_str(), hashTarget.ToString().c_str());
+                                                                   }
+                                                                   ++genesis.nNonce;
+                                                                   if (genesis.nNonce == 0)
+                                                                   {
+                                                                       printf("NONCE WRAPPED, incrementing time\n");
+                                                                       ++genesis.nTime;
+                                                                   }
+                                                               }
+                                                               printf("genesis.nTime = %u \n", genesis.nTime);
+                                                               printf("genesis.nNonce = %u \n", genesis.nNonce);
+                                                               printf("genesis.nVersion = %u \n", genesis.nVersion);
+                                                               printf("genesis.GetHash = %s\n", genesis.GetHash().ToString().c_str()); //first this, then comment this line out and uncomment the one under.
+                                                               printf("genesis.hashMerkleRoot = %s \n", genesis.hashMerkleRoot.ToString().c_str()); //improvised. worked for me, to find merkle root
+                                           
+                                                           }
 				
 		hashGenesisBlock = genesis.GetHash();
-        assert(hashGenesisBlock == uint256("0x00000f44b41030d51c381ad64f4a537e7ce2e68c99011c5bdaea75fffc867f9b"));
-        assert(genesis.hashMerkleRoot == uint256("0x393ad1982b271132f0351e286db3ac44e47d77bf36ae22871e664e20ab6950e7"));
+        assert(hashGenesisBlock == uint256("0x0000023d4dd91567201b6dfb2033c813d5bb5408b368cb715584c750989034f0"));
+        assert(genesis.hashMerkleRoot == uint256("0x2d8e0607b6518f95a46f7b32da7f1739f362e4ce589f36b812bb22eea8157f17"));
 
  
 		vSeeds.push_back(CDNSSeedData("nos.mnseeds.com", "nos.mnseeds.com"));// Seeder
