@@ -56,8 +56,8 @@ static const CAmount nHighTransactionMaxFeeWarning = 100 * nHighTransactionFeeWa
 static const unsigned int MAX_FREE_TRANSACTION_CREATE_SIZE = 1000;
 
 // Zerocoin denomination which creates exactly one of each denominations:
-// 7171 = 1*5000 + 1*1000 + 1*500 + 1*100 + 1*50 + 1*10 + 1*5 + 1
-static const int ZQ_7171 = 7171;
+// 1717 = 1*5000 + 1*1000 + 1*500 + 1*100 + 1*50 + 1*10 + 1*5 + 1
+static const int ZQ_1717 = 1717;
 
 class CAccountingEntry;
 class CCoinControl;

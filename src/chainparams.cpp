@@ -54,7 +54,7 @@ static void convertSeed6(std::vector<CAddress>& vSeedsOut, const SeedSpec6* data
 // + Contains no strange transactions
 static Checkpoints::MapCheckpoints mapCheckpoints =
     boost::assign::map_list_of
-    (0, uint256("0x0000023d4dd91567201b6dfb2033c813d5bb5408b368cb715584c750989034f0"));
+    (0, uint256("0x000004509d98597d67b1a04ff7deea5fc6355544a1574219b1f6eb2d78deca8b"));
 static const Checkpoints::CCheckpointData data = {
     &mapCheckpoints,
     1514540176, // * UNIX timestamp of last checkpoint block
@@ -100,12 +100,12 @@ public:
          * The characters are rarely used upper ASCII, not valid as UTF-8, and produce
          * a large 4-byte int at any alignment.
          */
-        pchMessageStart[0] = 0x32;
-        pchMessageStart[1] = 0x60;
-        pchMessageStart[2] = 0x54;
-        pchMessageStart[3] = 0x26;
+        pchMessageStart[0] = 0x31;
+        pchMessageStart[1] = 0x62;
+        pchMessageStart[2] = 0x53;
+        pchMessageStart[3] = 0x27;
         vAlertPubKey = ParseHex("04bxbf5f4dab42002143f5b25a2e6fd658dd300508c0fd3c890edfa241edcdd224c9fb62d0a3e86ab655c384b598bd3e92d25fee84774060a0d461f0e9483587e5");
-        nDefaultPort = 7272;
+        nDefaultPort = 2727;
         bnProofOfWorkLimit = ~uint256(0) >> 20; // Nos starting difficulty is 1 / 2^12
         nSubsidyHalvingInterval = 99999999;
         nMaxReorganizationDepth = 100;
@@ -115,16 +115,16 @@ public:
         nMinerThreads = 0;
         nTargetTimespan = 1 * 7; //
         nTargetSpacing = 1 * 15;  // Nos: 15 Seconds
-        nMaturity = 5;
+        nMaturity = 10;
         nMasternodeCountDrift = 20;
         nMaxMoneyOut = 180000000 * COIN;
 
         /** Height or Time Based Activations **/
-        nLastPOWBlock = 375000;
+        nLastPOWBlock = 200;
         nModifierUpdateBlock = 999999999;
         nZerocoinStartHeight = 201;
         nAccumulatorStartHeight = 1;
-        nZerocoinStartTime = 1527181054; // 
+        nZerocoinStartTime = 1527544299; // 
         nBlockEnforceSerialRange = 1; //Enforce serial range starting this block
         nBlockRecalculateAccumulators = ~1; //Trigger a recalculation of accumulators
         nBlockFirstFraudulent = ~1; //First block that bad serials emerged
@@ -136,11 +136,11 @@ public:
          *
          * CBlock(hash=00000ffd590b14, ver=1, hashPrevBlock=00000000000000, hashMerkleRoot=e0028e, nTime=1390095618, nBits=1e0ffff0, nNonce=28917698, vtx=1)
          *   CTransaction(hash=e0028e, ver=1, vin.size=1, vout.size=1, nLockTime=0)
-         *     CTxIn(COutPoint(000000, -1), coinbase 04ffff001d01044c5957697265642030392f4a616e2f3230313420546872724772616e64204578706572696d656e7420476f6573204c6976653a204f76657273746f636b2e636f6d204973204e6f7720416363657074696e6720426974636f696e73)
+         *     CTxIn(COutPoint(000000, -1), coinbase 04ffff001d01044c5957697265642030392f4a616e2f3230313420546827274772616e64204578706572696d656e7420476f6573204c6976653a204f76657273746f636b2e636f6d204973204e6f7720416363657074696e6720426974636f696e73)
          *     CTxOut(nValue=50.00000000, scriptPubKey=0xA9037BAC7050C479B121CF)
          *   vMerkleTree: e0028e
          */
-        const char* pszTimestamp = "Deutsche Bank to slash more than 7,000 jobs – business live - The Guardian - 24 MAY 2018 --- Remapper";
+        const char* pszTimestamp = "Deutsche Bank to slash more than 7,000 jobs – business live - The Guardian - 24 MAY 2018 - Remapper";
         CMutableTransaction txNew;
         txNew.vin.resize(1);
         txNew.vout.resize(1);
@@ -151,15 +151,15 @@ public:
         genesis.hashPrevBlock = 0;
         genesis.hashMerkleRoot = genesis.BuildMerkleTree();
         genesis.nVersion = 1;
-        genesis.nTime = 1527180054;
+        genesis.nTime = 1527544199;
         genesis.nBits = 0x1e0ffff0;
-        genesis.nNonce = 3147878;
+        genesis.nNonce = 2696755;
 				
-	
+
 				
-	hashGenesisBlock = genesis.GetHash();
-        assert(hashGenesisBlock == uint256("0x0000023d4dd91567201b6dfb2033c813d5bb5408b368cb715584c750989034f0"));
-        assert(genesis.hashMerkleRoot == uint256("0x2d8e0607b6518f95a46f7b32da7f1739f362e4ce589f36b812bb22eea8157f17"));
+	    hashGenesisBlock = genesis.GetHash();
+        assert(hashGenesisBlock == uint256("0x000004509d98597d67b1a04ff7deea5fc6355544a1574219b1f6eb2d78deca8b"));
+        assert(genesis.hashMerkleRoot == uint256("0x6d304060762848e6a4aaae6ea36d2858a627835c51de190ad54d0787b8b45344"));
 
  
 		vSeeds.push_back(CDNSSeedData("nos.mnseeds.com", "nos.mnseeds.com"));// Seeder
@@ -192,7 +192,7 @@ public:
 
         nPoolMaxTransactions = 3;
         strSporkKey = "040ee052702fcabcc0c48ab438c7e48c8a033bde3a69034e161aaa2cca1a31694c87371549e7857792d1c2028d3934adf06e060fb37c88114b9b9536f495cc2d4f";
-        strObfuscationPoolDummyAddress = "Ceax8jHDQ1s2kHVjysEoTQncVdUrNBuXtp";
+        strObfuscationPoolDummyAddress = "Neax8jHDQ1s2kHVjysEoTQncVdUrNBuXtp";
         nStartMasternodePayments = 1403728576; //Wed, 25 Jun 2014 20:36:16 GMT
 
         /** Zerocoin */

@@ -3572,7 +3572,7 @@ void CWallet::AutoZeromint()
     nToMintAmount = (nToMintAmount - nZerocoinBalance) / COIN;
 
     // Use the biggest denomination smaller than the needed zNOS We'll only mint exact denomination to make minting faster.
-    // Exception: for big amounts use 7171 (7171 = 1*5000 + 1*1000 + 1*500 + 1*100 + 1*50 + 1*10 + 1*5 + 1) to create all
+    // Exception: for big amounts use 1717 (1717 = 1*5000 + 1*1000 + 1*500 + 1*100 + 1*50 + 1*10 + 1*5 + 1) to create all
     // possible denominations to avoid having 5000 denominations only.
     // If a preferred denomination is used (means nPreferredDenom != 0) do nothing until we have enough NOS to mint this denomination
 
@@ -3583,8 +3583,8 @@ void CWallet::AutoZeromint()
             nToMintAmount = 0;                // Not enough coins => do nothing and wait for more coins
     }
 
-    if (nToMintAmount >= ZQ_7171){
-        nMintAmount = ZQ_7171;
+    if (nToMintAmount >= ZQ_1717){
+        nMintAmount = ZQ_1717;
     } else if (nToMintAmount >= libzerocoin::CoinDenomination::ZQ_FIVE_THOUSAND){
         nMintAmount = libzerocoin::CoinDenomination::ZQ_FIVE_THOUSAND;
     } else if (nToMintAmount >= libzerocoin::CoinDenomination::ZQ_ONE_THOUSAND){
